@@ -1,12 +1,12 @@
-### Analysis of Nekogram 12.5.2 decompiled source code - phone exfiltration backdoor discovered
-Анализ декомпилированного исходного кода Nekogram 12.5.2 - обнаружен бэкдор для сбора номеров телефонов
+### Analysis of Nekogram 12.5.2 decompiled source - phone exfiltration backdoor discovered
+Анализ декомпилированных исходников Nekogram 12.5.2 - обнаружен бэкдор для сбора номеров телефонов
 
 ![code](code.jpg)
 
-## EN
+## English
 
 ### Summary
-A phone number-stealing backdoor has been identified within the Nekogram Android client. The investigation reveals that the application contains obfuscated logic designed to silently collect and upload the phone numbers of all accounts logged into the app. This malicious behavior is present in distributed versions, including the version available on the **Google Play Store**.
+A phone number stealing backdoor has been identified within the Nekogram Android client. The investigation reveals that the application contains obfuscated logic designed to silently collect and upload the phone numbers of all accounts logged into the app. This malicious behavior is present in distributed versions, including the version available on the **Google Play**.
 
 ### The Backdoor: `Extra.java`
 The malicious code is concealed within `Extra.java`. While the [public GitHub repository](https://github.com/Nekogram/Nekogram/blob/6a30d8f540142fd4f862a505ba2e1cf5f53ea1a2/TMessagesProj/src/main/java/tw/nekomimi/nekogram/Extra.java.example) displays a "clean" example version of this file, the compiled binaries used by the public contain the exfiltration logic.
@@ -23,10 +23,10 @@ for (int i2 = 0; i2 < 8; i2++) {
     }
 }
 ```
-**Impact:** This allows the developer to link multiple accounts to a single physical user/device, destroying the anonymity of users who use different accounts for different purposes.
+**Impact:** This allows the developer to link multiple accounts to a single physical user/device.
 
 #### 2. Silent Exfiltration via Inline Queries
-The data is exfiltrated using **Inline Queries**. This is a highly stealthy method because it does not leave a trace in the user's "Sent Messages" or chat history.
+The data is exfiltrated using **Inline Queries**. This is a highly stealthy method because it does not leave a trace in the user's chat history.
 - **Target Bot:** `@nekonotificationbot` (ID `1190800416`)
 - **Method:** `InlineBotHelper.Query(...)`
 - **Payload:** A JSON map of `UserID -> Phone Number` prefixed with a secret key.
@@ -46,10 +46,11 @@ Using a custom decryption tool, we recovered hidden strings used by the backdoor
 | -7227025642301154036 | **`usinfobot`** | OSINT Bot Reference |
 | -7227027729655259892 | `741ad2...ae1b1` | Shared Secret / Hash |
 
-Also APP_ID was found: `442495`
+#### Found APP_ID: `442495`
 
 ### Conclusion
-Nekogram is actively harvesting private user data. By sending phone numbers and User IDs to a centralized bot, the developers can build a database mapping Telegram users to real-world identities. The use of obfuscation and inline queries demonstrates a clear intent to hide this behavior from both users and security researchers.
+Nekogram is harvesting private user data. By sending phone numbers and User IDs to a centralized bot, the developers can build a database and later sell it to creators of well-known OSINT bots, this is destroying Telegram's anonymity concept. The use of obfuscation and inline queries demonstrates a clear intent to hide this behavior from both users and security researchers.
+**Always use only the official Telegram client if you don't want your private data to be leaked!**
 
 ---
 
@@ -73,10 +74,10 @@ for (int i2 = 0; i2 < 8; i2++) {
     }
 }
 ```
-**Последствия:** Это позволяет разработчику связать несколько аккаунтов с одним физическим пользователем/устройством, уничтожая анонимность пользователей, использующих разные аккаунты для разных целей.
+**Последствия:** Это позволяет разработчику связать несколько аккаунтов с одним физическим пользователем/устройством.
 
 #### 2. Скрытый слив через Inline-запросы
-Данные передаются с помощью **Inline-запросов** (инлайн-запросов). Это крайне скрытный метод, так как он не оставляет следов в истории чатов или в папке «Отправленные».
+Данные передаются с помощью **Inline-запросов** (инлайн-запросов). Это крайне скрытный метод, так как он не оставляет следов в истории чатов.
 - **Целевой бот:** `@nekonotificationbot` (ID `1190800416`)
 - **Метод:** `InlineBotHelper.Query(...)`
 - **Полезная нагрузка:** JSON-карта `UserID -> Номер телефона`, дополненная секретным ключом.
@@ -96,7 +97,8 @@ for (int i2 = 0; i2 < 8; i2++) {
 | -7227025642301154036 | **`usinfobot`** | Упоминание OSINT-бота |
 | -7227027729655259892 | `741ad2...ae1b1` | Общий секрет / Хеш |
 
-Также был найден APP_ID: `442495`
+#### Найден APP_ID: `442495`
 
 ### Заключение
-Nekogram активно собирает приватные данные пользователей. Отправляя номера телефонов и User ID на централизованный бот, разработчики могут создавать базу данных, связывающую пользователей Telegram с их реальными личностями. Использование обфускации и инлайн-запросов доказывает явное намерение скрыть эту деятельность как от пользователей, так и от исследователей безопасности.
+Nekogram занимается сбором личных данных пользователей. Отправляя номера телефонов и User ID централизованному боту, разработчики могут создать базу данных, чтобы в дальнейшем продать её создателям известных OSINT-ботов. Это полностью разрушает концепцию анонимности в Telegram. Использование обфускации и инлайн-запросов (inline queries) явно свидетельствует о намерении скрыть подобную активность как от рядовых пользователей, так и от специалистов по кибербезопасности.
+**Всегда используйте только официальный клиент Telegram, если не хотите, чтобы ваши личные данные попали в открытый доступ!**
