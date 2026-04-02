@@ -1,6 +1,5 @@
 ### Analysis of Nekogram 12.5.2 decompiled source code - phone exfiltration backdoor discovered
-
-**Анализ декомпилированного исходного кода Nekogram 12.5.2 - обнаружен бэкдор для сбора номеров телефонов**
+Анализ декомпилированного исходного кода Nekogram 12.5.2 - обнаружен бэкдор для сбора номеров телефонов
 
 ![code](code.jpg)
 
