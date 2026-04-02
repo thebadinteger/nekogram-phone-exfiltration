@@ -48,7 +48,7 @@ Using a custom decryption tool, we recovered hidden strings used by the backdoor
 
 #### Found APP_ID: `442495`
 
-[GitHub Issue for awareness](https://github.com/Nekogram/Nekogram/issues/336)
+**[GitHub Issue for awareness](https://github.com/Nekogram/Nekogram/issues/336)**
 
 ### Conclusion
 Nekogram is harvesting private user data. By sending phone numbers and User IDs to a centralized bot, the developers can build a database and later sell it to creators of well-known OSINT bots, this is destroying Telegram's anonymity concept. The use of obfuscation and inline queries demonstrates a clear intent to hide this behavior from both users and security researchers.
@@ -101,7 +101,7 @@ for (int i2 = 0; i2 < 8; i2++) {
 
 #### Найден APP_ID: `442495`
 
-[Issue на GitHub с оглаской](https://github.com/Nekogram/Nekogram/issues/336)
+**[Issue на GitHub с оглаской](https://github.com/Nekogram/Nekogram/issues/336)**
 
 ### Заключение
 Nekogram занимается сбором личных данных пользователей. Отправляя номера телефонов и User ID централизованному боту, разработчики могут создать базу данных, чтобы в дальнейшем продать её создателям известных OSINT-ботов. Это полностью разрушает концепцию анонимности в Telegram. Использование обфускации и инлайн-запросов (inline queries) явно свидетельствует о намерении скрыть подобную активность как от рядовых пользователей, так и от специалистов по кибербезопасности.
